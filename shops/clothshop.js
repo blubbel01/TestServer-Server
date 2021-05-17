@@ -141,8 +141,22 @@ MyAPI.registerCommand("clothshop", async (player) => {
         return;
     }
 
+    const dbTotalCount = await database.models.valid_combinations.count();
+    const dbDoneCount = await  database.models.valid_combinations.count({
+        where: {
+            [Op.not]: [
+                {
+                    valid: null
+                }
+            ]
+        }
+    });
+
     const {drawableTop, drawableTorso, drawableUndershirt} = dbDataEntry;
-    player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt);
+    player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, dbTotalCount, dbDoneCount);
     activePlayers[player.mpPlayer.id] = {gender, drawableTorso, drawableUndershirt, drawableTop};
 });
 
+module.exports = {
+    activePlayers
+};

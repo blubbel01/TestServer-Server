@@ -20,6 +20,10 @@ require("./commands/CMD_tp");
 require("./commands/CMD_smode");
 require("./commands/CMD_vehicle");
 
+// load Listeners
+require("./listeners/PlayerConnectionListener");
+require("./listeners/PlayerDeathListener");
+
 module.exports = {
     globalSModePlayerIds,
 }
