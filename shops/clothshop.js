@@ -35,61 +35,62 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
     activityEntry.activity = activityEntry.activity + 1;
     await activityEntry.save();
 
+    setImmediate(async () => {
+        switch (validState) {
+            case true:
+                dbEntry.valid = true;
+                await dbEntry.save();
+                break;
+            case "fTorso":
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
+                    where: {
+                        gender,
+                        drawableTorso,
+                        drawableTop,
+                    }
+                });
+                break;
+            case "fUndershirt":
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
+                    where: {
+                        gender,
+                        drawableUndershirt,
+                        drawableTop,
+                    }
+                });
+                break;
+            case "fTop":
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
+                    where: {
+                        gender,
+                        drawableTop,
+                    }
+                });
+                break;
+            case false:
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
+                    where: {
+                        gender,
+                        [Op.or]: [
+                            {drawableUndershirt},
+                            {drawableTorso}
+                        ],
+                        drawableTop,
+                    }
+                });
+                break;
+        }
 
-    switch (validState) {
-        case true:
-            dbEntry.valid = true;
-            await dbEntry.save();
-            break;
-        case "fTorso":
-            await database.models.valid_combinations.update({
-                valid: false
-            }, {
-                where: {
-                    gender,
-                    drawableTorso,
-                    drawableTop,
-                }
-            });
-            break;
-        case "fUndershirt":
-            await database.models.valid_combinations.update({
-                valid: false
-            }, {
-                where: {
-                    gender,
-                    drawableUndershirt,
-                    drawableTop,
-                }
-            });
-            break;
-        case "fTop":
-            await database.models.valid_combinations.update({
-                valid: false
-            }, {
-                where: {
-                    gender,
-                    drawableTop,
-                }
-            });
-            break;
-        case false:
-            await database.models.valid_combinations.update({
-                valid: false
-            }, {
-                where: {
-                    gender,
-                    [Op.or]: [
-                        {drawableUndershirt},
-                        {drawableTorso}
-                    ],
-                    drawableTop,
-                }
-            });
-            break;
-    }
-
-    player.notify("Gespeichert");
+        player.notify("Gespeichert");
+    });
 
     const orStatementExclusion = Object.values(activePlayers).map(data => {
         return {
