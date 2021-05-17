@@ -13,8 +13,6 @@ mp.events.add("playerJoin", async (player) => {
         return player.kick("You are not whitelisted on this Server!");
     }
     player.name = whiteListEntry.nickname;
-    player.mpPlayer.armour = 100;
-    player.mpPlayer.health = 100;
 
     player.spawn(new mp.Vector3(-425.517, 1123.620, 325.8544));
     player.dimension = 0;
