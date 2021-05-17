@@ -1,6 +1,21 @@
 const {activePlayers} = require("../shops/clothshop");
+const {database} = require("../database/index");
 
-mp.events.add("playerJoin", (player) => {
+mp.events.add("playerJoin", async (player) => {
+
+    const whiteListEntry = await database.models.whitelist.findOne({
+        where: {
+            socialClubName: player.socialClub,
+        },
+    });
+
+    if (!whiteListEntry) {
+        return player.kick("You are not whitelisted on this Server!");
+    }
+    player.name = whiteListEntry.nickname;
+    player.mpPlayer.armour = 100;
+    player.mpPlayer.health = 100;
+
     player.spawn(new mp.Vector3(-425.517, 1123.620, 325.8544));
     player.dimension = 0;
     mp.players.broadcast(`Spieler ${player.name} ist dem Server beigetreten!`);
