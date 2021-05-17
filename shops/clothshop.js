@@ -35,7 +35,15 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
     activityEntry.activity = activityEntry.activity + 1;
     await activityEntry.save();
 
-    setImmediate(async () => {
+    if (validState === true) {
+        dbEntry.valid = true;
+        await dbEntry.save();
+    } else {
+        dbEntry.valid = false;
+        await dbEntry.save();
+    }
+
+    setTimeout(async () => {
         switch (validState) {
             case true:
                 dbEntry.valid = true;
@@ -90,7 +98,7 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
         }
 
         player.notify("Gespeichert");
-    });
+    }, 10);
 
     const orStatementExclusion = Object.values(activePlayers).map(data => {
         return {
