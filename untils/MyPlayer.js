@@ -48,4 +48,40 @@ module.exports["MyPlayer"] = class MyPlayer {
     set position(position) {
         this.mpPlayer.position = position;
     }
+
+    /**
+     * get name
+     * @return {string}
+     */
+    get name() {
+        return this.mpPlayer.name;
+    }
+
+    /**
+     * set player name
+     * @param {string} name
+     */
+    set name(name) {
+        this.mpPlayer.name = name;
+    }
+
+
+
+    /**
+     * get dimension
+     * @return {string}
+     */
+    get dimension() {
+        return this.mpPlayer.dimension;
+    }
+
+    /**
+     * set player dimension
+     * @param {number} dimension
+     */
+    set dimension(dimension) {
+        this.mpPlayer.dimension = dimension;
+    }
+
+
 }
