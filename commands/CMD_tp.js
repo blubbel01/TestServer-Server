@@ -1,5 +1,4 @@
 const {MyAPI} = require("../untils/MyAPI");
-const {globalSModePlayerIds} = require("../index");
 
 MyAPI.registerCommand("tp", (player, fullText, ...args) => {
     if (args.length === 1) {
@@ -10,7 +9,8 @@ MyAPI.registerCommand("tp", (player, fullText, ...args) => {
         });
         let targetPlayer;
         player.position = targetPlayer.position;
-        if (globalSModePlayerIds[player.id]) {
+        const isSMode = player.getVariable('smode');
+        if (isSMode) {
             if (targetPlayer.dimension === 0) {
                 player.dimension = -1;
             } else {

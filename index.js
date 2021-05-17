@@ -1,7 +1,5 @@
 'use strict';
 
-const globalSModePlayerIds = {};
-
 require('dotenv').config();
 
 //load database
@@ -24,6 +22,3 @@ require("./commands/CMD_vehicle");
 require("./listeners/PlayerConnectionListener");
 require("./listeners/PlayerDeathListener");
 
-module.exports = {
-    globalSModePlayerIds,
-}

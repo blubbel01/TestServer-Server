@@ -1,9 +1,9 @@
 const {MyAPI} = require("../untils/MyAPI");
-const {globalSModePlayerIds} = require("../index");
 
 MyAPI.registerCommand("smode", (player) => {
-    if (globalSModePlayerIds[player.id]) {
-        delete globalSModePlayerIds[player.id];
+    const isSMode = player.getVariable('smode');
+    if (isSMode) {
+        player.setVariable('smode', false);
         if (player.dimension === 0) {
             player.dimension = -1;
         } else {
@@ -11,7 +11,7 @@ MyAPI.registerCommand("smode", (player) => {
         }
         player.sendChatMessage("SMode aktiviert!");
     } else {
-        globalSModePlayerIds[player.id] = true;
+        player.setVariable('smode', true);
         if (player.dimension === -1) {
             player.dimension = 0;
         } else {
