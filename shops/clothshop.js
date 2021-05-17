@@ -27,38 +27,35 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
                 await dbEntry.save();
                 break;
             case "fTorso":
-                (await database.models.valid_combinations.findAll({
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
                     where: {
                         gender,
                         drawableTorso,
                         drawableTop,
                     }
-                })).forEach(entry => {
-                    entry.valid = false;
-                    entry.save();
                 });
                 break;
             case "fUndershirt":
-                (await database.models.valid_combinations.findAll({
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
                     where: {
                         gender,
                         drawableUndershirt,
                         drawableTop,
                     }
-                })).forEach(entry => {
-                    entry.valid = false;
-                    entry.save();
                 });
                 break;
             case "fTop":
-                (await database.models.valid_combinations.findAll({
+                await database.models.valid_combinations.update({
+                    valid: false
+                }, {
                     where: {
                         gender,
                         drawableTop,
                     }
-                })).forEach(entry => {
-                    entry.valid = false;
-                    entry.save();
                 });
                 break;
             case false:
