@@ -83,5 +83,4 @@ module.exports["MyPlayer"] = class MyPlayer {
         this.mpPlayer.dimension = dimension;
     }
 
-
 }

@@ -9,7 +9,7 @@ MyAPI.registerCommand("tp", (player, fullText, ...args) => {
         });
         let targetPlayer;
         player.position = targetPlayer.position;
-        const isSMode = player.getVariable('smode');
+        const isSMode = player.mpPlayer.getVariable('smode');
         if (isSMode) {
             if (targetPlayer.dimension === 0) {
                 player.dimension = -1;

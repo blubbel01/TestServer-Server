@@ -1,9 +1,9 @@
 const {MyAPI} = require("../untils/MyAPI");
 
 MyAPI.registerCommand("smode", (player) => {
-    const isSMode = player.getVariable('smode');
+    const isSMode = player.mpPlayer.getVariable('smode');
     if (isSMode) {
-        player.setVariable('smode', false);
+        player.mpPlayer.setVariable('smode', false);
         if (player.dimension === 0) {
             player.dimension = -1;
         } else {
@@ -11,7 +11,7 @@ MyAPI.registerCommand("smode", (player) => {
         }
         player.sendChatMessage("SMode aktiviert!");
     } else {
-        player.setVariable('smode', true);
+        player.mpPlayer.setVariable('smode', true);
         if (player.dimension === -1) {
             player.dimension = 0;
         } else {
