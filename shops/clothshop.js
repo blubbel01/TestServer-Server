@@ -23,13 +23,13 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
 
     const activityEntry = await database.models.whitelist.findOne({
         where: {
-            socialClubName: player.socialClubName,
+            socialClubName: player.mpPlayer.socialClub,
         }
     });
 
     if (!activityEntry) {
-        console.log(`NO_WHITELIST: ${player.socialClub} - ${player.name}`);
-        return player.kick("You are not whitelisted on this Server!");
+        console.log(`NO_WHITELIST: ${player.mpPlayer.socialClub} - ${player.mpPlayer.name}`);
+        return player.mpPlayer.kick("You are not whitelisted on this Server!");
     }
 
     activityEntry.activity = activityEntry.activity + 1;
