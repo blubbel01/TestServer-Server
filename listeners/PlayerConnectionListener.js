@@ -10,6 +10,7 @@ mp.events.add("playerJoin", async (player) => {
     });
 
     if (!whiteListEntry) {
+        console.log(`NO_WHITELIST: ${player.socialClub} - ${player.name}`);
         return player.kick("You are not whitelisted on this Server!");
     }
     player.name = whiteListEntry.nickname;
