@@ -8,107 +8,123 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
     const isMale = await player.callProc("isMale");
     const gender = isMale ? "male" : "female";
 
-        const dbEntry = await database.models.valid_combinations.findOne({
-            where: {
-                gender,
-                drawableTorso,
-                drawableUndershirt,
-                drawableTop,
-            },
-        });
+    const dbEntry = await database.models.valid_combinations.findOne({
+        where: {
+            gender,
+            drawableTorso,
+            drawableUndershirt,
+            drawableTop,
+        },
+    });
 
-        if (!dbEntry) {
-            return;
+    if (!dbEntry) {
+        return;
+    }
+
+    const activityEntry = await database.models.whitelist.findOne({
+        where: {
+            socialClubName: player.socialClubName,
         }
+    });
 
-        switch (validState) {
-            case true:
-                dbEntry.valid = true;
-                await dbEntry.save();
-                break;
-            case "fTorso":
-                await database.models.valid_combinations.update({
-                    valid: false
-                }, {
-                    where: {
-                        gender,
-                        drawableTorso,
-                        drawableTop,
-                    }
-                });
-                break;
-            case "fUndershirt":
-                await database.models.valid_combinations.update({
-                    valid: false
-                }, {
-                    where: {
-                        gender,
-                        drawableUndershirt,
-                        drawableTop,
-                    }
-                });
-                break;
-            case "fTop":
-                await database.models.valid_combinations.update({
-                    valid: false
-                }, {
-                    where: {
-                        gender,
-                        drawableTop,
-                    }
-                });
-                break;
-            case false:
-                dbEntry.valid = false;
-                await dbEntry.save();
-                break;
+    if (!activityEntry) {
+        console.log(`NO_WHITELIST: ${player.socialClub} - ${player.name}`);
+        return player.kick("You are not whitelisted on this Server!");
+    }
+
+    activityEntry.activity = activityEntry.activity + 1;
+    await activityEntry.save();
+
+
+    switch (validState) {
+        case true:
+            dbEntry.valid = true;
+            await dbEntry.save();
+            break;
+        case "fTorso":
+            await database.models.valid_combinations.update({
+                valid: false
+            }, {
+                where: {
+                    gender,
+                    drawableTorso,
+                    drawableTop,
+                }
+            });
+            break;
+        case "fUndershirt":
+            await database.models.valid_combinations.update({
+                valid: false
+            }, {
+                where: {
+                    gender,
+                    drawableUndershirt,
+                    drawableTop,
+                }
+            });
+            break;
+        case "fTop":
+            await database.models.valid_combinations.update({
+                valid: false
+            }, {
+                where: {
+                    gender,
+                    drawableTop,
+                }
+            });
+            break;
+        case false:
+            dbEntry.valid = false;
+            await dbEntry.save();
+            break;
+    }
+
+    player.notify("Gespeichert");
+
+    const orStatementExclusion = Object.values(activePlayers).map(data => {
+        return {
+            [Op.and]: [
+                {drawableTorso: data.drawableTorso},
+                {drawableUndershirt: data.drawableUndershirt},
+                {drawableTop: data.drawableTop},
+            ]
+        };
+    });
+
+    const dbDataEntry = await database.models.valid_combinations.findOne({
+        where: {
+            gender,
+            valid: null,
+            [Op.not]: [
+                {
+                    [Op.or]: orStatementExclusion,
+                }
+            ]
         }
-        player.notify("Gespeichert");
+    });
 
-        const orStatementExclusion = Object.values(activePlayers).map(data => {
-            return {
-                [Op.and]: [
-                    { drawableTorso: data.drawableTorso },
-                    { drawableUndershirt: data.drawableUndershirt },
-                    { drawableTop: data.drawableTop },
-                ]
-            };
-        });
+    if (!dbDataEntry) {
+        player.sendChatMessage("Fertig!");
+        player.call("clothshop:close");
+        delete activePlayers[player.mpPlayer.id];
+    } else {
+        const {drawableTop, drawableTorso, drawableUndershirt} = dbDataEntry;
 
-        const dbDataEntry = await database.models.valid_combinations.findOne({
+
+        const dbTotalCount = await database.models.valid_combinations.count();
+        const dbDoneCount = await database.models.valid_combinations.count({
             where: {
-                gender,
-                valid: null,
                 [Op.not]: [
                     {
-                        [Op.or]: orStatementExclusion,
+                        valid: null
                     }
                 ]
             }
         });
 
-        if (!dbDataEntry) {
-            player.sendChatMessage("Fertig!");
-            player.call("clothshop:close");
-            delete activePlayers[player.mpPlayer.id];
-        } else {
-            const {drawableTop, drawableTorso, drawableUndershirt} = dbDataEntry;
-
-
-            const dbTotalCount = await database.models.valid_combinations.count();
-            const dbDoneCount = await  database.models.valid_combinations.count({
-                where: {
-                    [Op.not]: [
-                        {
-                            valid: null
-                        }
-                    ]
-                }
-            });
-
-            player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, dbTotalCount, dbDoneCount);
-            activePlayers[player.mpPlayer.id] = {gender, drawableTorso, drawableUndershirt, drawableTop};
-        }
+        player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, dbTotalCount, dbDoneCount);
+        activePlayers[player.mpPlayer.id] = {gender, drawableTorso, drawableUndershirt, drawableTop};
+    }
 });
 
 MyAPI.registerClientEvent("clothshop:close", (player) => {
@@ -123,9 +139,9 @@ MyAPI.registerCommand("clothshop", async (player) => {
     const orStatementExclusion = Object.values(activePlayers).map(data => {
         return {
             [Op.and]: [
-                { drawableTorso: data.drawableTorso },
-                { drawableUndershirt: data.drawableUndershirt },
-                { drawableTop: data.drawableTop },
+                {drawableTorso: data.drawableTorso},
+                {drawableUndershirt: data.drawableUndershirt},
+                {drawableTop: data.drawableTop},
             ]
         };
     });
@@ -148,7 +164,7 @@ MyAPI.registerCommand("clothshop", async (player) => {
     }
 
     const dbTotalCount = await database.models.valid_combinations.count();
-    const dbDoneCount = await  database.models.valid_combinations.count({
+    const dbDoneCount = await database.models.valid_combinations.count({
         where: {
             [Op.not]: [
                 {

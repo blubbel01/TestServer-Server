@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         team: {
             type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        activity: {
+            type: DataTypes.INTEGER(11),
             allowNull: false,
         },
     }, {
