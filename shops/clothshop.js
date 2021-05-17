@@ -80,8 +80,8 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
                 where: {
                     gender,
                     [Op.or]: [
-                        drawableUndershirt,
-                        drawableTorso
+                        {drawableUndershirt},
+                        {drawableTorso}
                     ],
                     drawableTop,
                 }
