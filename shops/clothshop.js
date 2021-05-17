@@ -65,8 +65,6 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
         }
         player.notify("Gespeichert");
 
-        return;
-
         const orStatementExclusion = Object.values(activePlayers).map(data => {
             return {
                 [Op.and]: [
