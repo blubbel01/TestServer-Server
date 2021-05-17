@@ -17,6 +17,7 @@ require("./commands/CMD_respawn");
 require("./commands/CMD_tp");
 require("./commands/CMD_smode");
 require("./commands/CMD_vehicle");
+require("./commands/CMD_setDim");
 
 // load Listeners
 require("./listeners/PlayerConnectionListener");

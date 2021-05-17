@@ -2,12 +2,12 @@ const {MyAPI} = require("../untils/MyAPI");
 
 MyAPI.registerCommand("tp", (player, fullText, ...args) => {
     if (args.length === 1) {
-        mp.players.forEach(player => {
-            if (player.name == args[0]) {
-                targetPlayer = player;
+        let targetPlayer;
+        mp.players.forEach(_player => {
+            if (_player.name == args[0]) {
+                targetPlayer = _player;
             }
         });
-        let targetPlayer;
         player.position = targetPlayer.position;
         const isSMode = player.mpPlayer.getVariable('smode');
         if (isSMode) {
@@ -21,16 +21,16 @@ MyAPI.registerCommand("tp", (player, fullText, ...args) => {
             player.dimension = targetPlayer.dimension;
         }
     } else if (args.length === 2) {
-        mp.players.forEach(player => {
-            if (player.name == args[0]) {
-                playerA = player;
-            }
-            if (player.name == args[1]) {
-                playerB = player;
-            }
-        });
         let playerA;
         let playerB;
+        mp.players.forEach(_player => {
+            if (_player.name == args[0]) {
+                playerA = _player;
+            }
+            if (_player.name == args[1]) {
+                playerB = _player;
+            }
+        });
 
         playerA.position = playerB.position;
         player.sendChatMessage(`Du hast ${playerA.name} zu ${playerB.name} teleportiert`);

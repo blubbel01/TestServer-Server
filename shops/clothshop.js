@@ -99,7 +99,20 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
             delete activePlayers[player.mpPlayer.id];
         } else {
             const {drawableTop, drawableTorso, drawableUndershirt} = dbDataEntry;
-            player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt);
+
+
+            const dbTotalCount = await database.models.valid_combinations.count();
+            const dbDoneCount = await  database.models.valid_combinations.count({
+                where: {
+                    [Op.not]: [
+                        {
+                            valid: null
+                        }
+                    ]
+                }
+            });
+
+            player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, dbTotalCount, dbDoneCount);
             activePlayers[player.mpPlayer.id] = {gender, drawableTorso, drawableUndershirt, drawableTop};
         }
 });
