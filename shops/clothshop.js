@@ -38,18 +38,8 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
 
     switch (validState) {
         case true:
-            await database.models.valid_combinations.update({
-                valid: false
-            }, {
-                where: {
-                    gender,
-                    [Op.or]: [
-                        drawableUndershirt,
-                        drawableTorso
-                    ],
-                    drawableTop,
-                }
-            });
+            dbEntry.valid = true;
+            await dbEntry.save();
             break;
         case "fTorso":
             await database.models.valid_combinations.update({
@@ -84,8 +74,18 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
             });
             break;
         case false:
-            dbEntry.valid = false;
-            await dbEntry.save();
+            await database.models.valid_combinations.update({
+                valid: false
+            }, {
+                where: {
+                    gender,
+                    [Op.or]: [
+                        drawableUndershirt,
+                        drawableTorso
+                    ],
+                    drawableTop,
+                }
+            });
             break;
     }
 
