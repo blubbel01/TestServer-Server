@@ -79,7 +79,6 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
             where: {
                 gender,
                 valid: null,
-                drawableUndershirt: 0,
                 [Op.not]: [
                     {
                         [Op.or]: orStatementExclusion,
@@ -135,7 +134,6 @@ MyAPI.registerCommand("clothshop", async (player) => {
         where: {
             gender,
             valid: null,
-            drawableUndershirt: 0,
             [Op.not]: [
                 {
                     [Op.or]: orStatementExclusion,
