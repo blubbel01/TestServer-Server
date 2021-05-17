@@ -38,8 +38,18 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
 
     switch (validState) {
         case true:
-            dbEntry.valid = true;
-            await dbEntry.save();
+            await database.models.valid_combinations.update({
+                valid: false
+            }, {
+                where: {
+                    gender,
+                    [Op.or]: [
+                        drawableUndershirt,
+                        drawableTorso
+                    ],
+                    drawableTop,
+                }
+            });
             break;
         case "fTorso":
             await database.models.valid_combinations.update({
