@@ -13,3 +13,4 @@ require("./shops/clothshop");
 // load Commands
 require("./commands/CMD_setGender");
 require("./commands/CMD_weapon");
+require("./commands/CMD_respawn");
