@@ -129,19 +129,7 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
     } else {
         const {drawableTop, drawableTorso, drawableUndershirt} = dbDataEntry;
 
-
-        const dbTotalCount = await database.models.valid_combinations.count();
-        const dbDoneCount = await database.models.valid_combinations.count({
-            where: {
-                [Op.not]: [
-                    {
-                        valid: null
-                    }
-                ]
-            }
-        });
-
-        player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, dbTotalCount, dbDoneCount);
+        player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, 1, 0);
         activePlayers[player.mpPlayer.id] = {gender, drawableTorso, drawableUndershirt, drawableTop};
     }
 });
@@ -182,19 +170,8 @@ MyAPI.registerCommand("clothshop", async (player) => {
         return;
     }
 
-    const dbTotalCount = await database.models.valid_combinations.count();
-    const dbDoneCount = await database.models.valid_combinations.count({
-        where: {
-            [Op.not]: [
-                {
-                    valid: null
-                }
-            ]
-        }
-    });
-
     const {drawableTop, drawableTorso, drawableUndershirt} = dbDataEntry;
-    player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, dbTotalCount, dbDoneCount);
+    player.call("clothshop:selectItem", drawableTop, drawableTorso, drawableUndershirt, 1, 0);
     activePlayers[player.mpPlayer.id] = {gender, drawableTorso, drawableUndershirt, drawableTop};
 });
 
