@@ -18,6 +18,8 @@ require("./commands/CMD_tp");
 require("./commands/CMD_smode");
 require("./commands/CMD_vehicle");
 require("./commands/CMD_setDim");
+require("./commands/CMD_time");
+require("./commands/CMD_weather");
 
 // load Listeners
 require("./listeners/PlayerConnectionListener");
