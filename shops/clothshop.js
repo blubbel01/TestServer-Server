@@ -57,6 +57,7 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
                         gender,
                         drawableTorso,
                         drawableTop,
+                        valid: null,
                     }
                 });
                 break;
@@ -68,6 +69,7 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
                         gender,
                         drawableUndershirt,
                         drawableTop,
+                        valid: null,
                     }
                 });
                 break;
@@ -92,6 +94,7 @@ MyAPI.registerClientEvent("clothshop:setValidation", async (player, drawableTors
                             {drawableTorso}
                         ],
                         drawableTop,
+                        valid: null,
                     }
                 });
                 break;
