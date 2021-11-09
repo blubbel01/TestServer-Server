@@ -103,7 +103,7 @@ class WeaponHandler {
             range: 80,
             shotgun: true,
         });
-        WeaponHandler.weaponData.set(0xDBBD7280, { // weapon_gusenberg
+        WeaponHandler.weaponData.set(0x61012683, { // weapon_gusenberg
             damageBase: 24,
             range: 80,
             shotgun: true,
@@ -120,13 +120,14 @@ class WeaponHandler {
      *
      * @param {PlayerMp} sourcePlayer
      * @param {string} targetPlayerName
-     * @param {HashOrString} weaponHash
+     * @param {any} weaponHash
      * @param {number} hitBone
      */
     static playerShotPlayer(sourcePlayer, targetPlayerName, weaponHash, hitBone) {
+        weaponHash = Number(weaponHash);
         sourcePlayer.outputChatBox("Damage to " + weaponHash);
         const multiplier = WeaponHandler[hitBone];
-        const weaponBaseDamage = WeaponHandler.weaponData.get(weaponHash).damageBase;
+        const weaponBaseDamage = WeaponHandler.weaponData.has(weaponHash) ? WeaponHandler.weaponData.get(weaponHash).damageBase : 0;
 
         let targetPlayer;
         mp.players.forEach((player) => {
