@@ -111,7 +111,13 @@ class WeaponHandler {
 
         WeaponHandler.weaponData.set(0x05FC3C11, { // weapon_sniperrifle
             damageBase: 308,
-            range: 150,
+            range: 2000,
+            shotgun: true,
+        });
+
+        WeaponHandler.weaponData.set(0xDC4DB296, { // weapon_marksmanpistol
+            damageBase: 220,
+            range: 500,
             shotgun: true,
         });
     }
