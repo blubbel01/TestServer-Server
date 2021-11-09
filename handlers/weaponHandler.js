@@ -125,7 +125,6 @@ class WeaponHandler {
      */
     static playerShotPlayer(sourcePlayer, targetPlayerName, weaponHash, hitBone) {
         weaponHash = Number(weaponHash);
-        sourcePlayer.outputChatBox("Damage to " + weaponHash);
         const multiplier = WeaponHandler.multiplier[hitBone];
         const weaponBaseDamage = WeaponHandler.weaponData.has(weaponHash) ? WeaponHandler.weaponData.get(weaponHash).damageBase : 0;
 
@@ -137,7 +136,17 @@ class WeaponHandler {
         });
 
         if (targetPlayer) {
-            targetPlayer.health -= Math.floor(weaponBaseDamage / 2 * multiplier);
+            let dmg = Math.floor(weaponBaseDamage / 2 * multiplier);
+            if (targetPlayer.armour > 0) {
+                if (dmg > targetPlayer.armour) {
+                    targetPlayer.armour = 0;
+                    dmg -= targetPlayer.armour;
+                } else {
+                    targetPlayer.armour -= dmg;
+                    dmg = 0;
+                }
+            }
+            targetPlayer.health -= dmg;
             sourcePlayer.outputChatBox("Damage to " + targetPlayer.name + ": " + Math.floor(weaponBaseDamage / 2 * multiplier));
         }
     }
