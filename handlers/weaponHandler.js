@@ -137,7 +137,7 @@ class WeaponHandler {
         });
 
         if (targetPlayer) {
-            targetPlayer.mpPlayer.health -= Math.floor(weaponBaseDamage / 2 * multiplier);
+            targetPlayer.health -= Math.floor(weaponBaseDamage / 2 * multiplier);
             sourcePlayer.outputChatBox("Damage to " + targetPlayer.name + ": " + Math.floor(weaponBaseDamage / 2 * multiplier));
         }
     }
