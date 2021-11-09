@@ -3,12 +3,12 @@
 require('dotenv').config();
 
 //load database
-require('./database/connection.js')();
-const database = require('./database').database;
+// require('./database/connection.js')();
+// const database = require('./database').database;
 
 
 // load scripts
-require("./shops/clothshop");
+// require("./shops/clothshop");
 
 // load Commands
 require("./commands/CMD_setGender");
@@ -25,3 +25,5 @@ require("./commands/CMD_weather");
 require("./listeners/PlayerConnectionListener");
 require("./listeners/PlayerDeathListener");
 
+// weapons
+require('./handlers/weaponHandler');
