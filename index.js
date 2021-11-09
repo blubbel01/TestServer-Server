@@ -1,7 +1,4 @@
 'use strict';
-
-require('dotenv').config();
-
 //load database
 // require('./database/connection.js')();
 // const database = require('./database').database;
