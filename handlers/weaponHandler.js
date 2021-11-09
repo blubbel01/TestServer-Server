@@ -124,6 +124,7 @@ class WeaponHandler {
      * @param {number} hitBone
      */
     static playerShotPlayer(sourcePlayer, targetPlayerName, weaponHash, hitBone) {
+        sourcePlayer.outputChatBox("Damage to " + weaponHash);
         const multiplier = WeaponHandler[hitBone];
         const weaponBaseDamage = WeaponHandler.weaponData.get(weaponHash).damageBase;
 
