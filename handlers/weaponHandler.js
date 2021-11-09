@@ -99,7 +99,7 @@ class WeaponHandler {
         });
 
         WeaponHandler.weaponData.set(0xDBBD7280, { // weapon_combatmg_mk2
-            damageBase: 25,
+            damageBase: 33,
             range: 80,
             shotgun: true,
         });
