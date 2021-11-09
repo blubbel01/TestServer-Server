@@ -1,8 +1,9 @@
 const {activePlayers} = require("../shops/clothshop");
-const {database} = require("../database/index");
+// const {database} = require("../database/index");
 
 mp.events.add("playerJoin", async (player) => {
 
+    /*
     const whiteListEntry = await database.models.whitelist.findOne({
         where: {
             socialClubName: player.socialClub,
@@ -14,6 +15,7 @@ mp.events.add("playerJoin", async (player) => {
         return player.kick("You are not whitelisted on this Server!");
     }
     player.name = whiteListEntry.nickname;
+     */
     player.armour = 100;
     player.health = 100;
 
