@@ -147,7 +147,7 @@ class WeaponHandler {
                 }
             }
             targetPlayer.health -= dmg;
-            sourcePlayer.outputChatBox("Damage to " + targetPlayer.name + ": " + Math.floor(weaponBaseDamage / 2 * multiplier));
+            sourcePlayer.outputChatBox(`Damage Bone: ${hitBone} DMG: ${Math.floor(weaponBaseDamage / 2 * multiplier)} Taget: ${targetPlayer.name}`);
         }
     }
 
