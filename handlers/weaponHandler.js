@@ -128,6 +128,11 @@ class WeaponHandler {
         sourcePlayer.outputChatBox("Damage to " + weaponHash);
         const multiplier = WeaponHandler[hitBone];
         const weaponBaseDamage = WeaponHandler.weaponData.has(weaponHash) ? WeaponHandler.weaponData.get(weaponHash).damageBase : 0;
+        console.log({
+            multiplier,
+            weaponBaseDamage,
+            hitBone,
+        });
 
         let targetPlayer;
         mp.players.forEach((player) => {
