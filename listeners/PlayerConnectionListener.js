@@ -1,6 +1,6 @@
 mp.events.add("playerJoin", async (player) => {
-    player.armour = 200;
-    player.health = 200;
+    player.armour = 100;
+    player.health = 100;
 
     player.spawn(new mp.Vector3(-425.517, 1123.620, 325.8544));
     player.dimension = 0;
