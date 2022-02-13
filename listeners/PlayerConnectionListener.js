@@ -1,3 +1,4 @@
+const {playerCreateVehicle} = require("../untils/DataHandler");
 mp.events.add("playerJoin", async (player) => {
     player.armour = 100;
     player.health = 100;
@@ -9,6 +10,10 @@ mp.events.add("playerJoin", async (player) => {
 
 mp.events.add("playerQuit", (player, exitType, reason) => {
     mp.players.broadcast(`Spieler ${player.name} hat den Server verlassen!`);
+
+    if (playerCreateVehicle.has(player.name)) {
+        playerCreateVehicle.get(player.name).destroy();
+    }
 });
 
 mp.events.add("playerChat", (player, text) => {

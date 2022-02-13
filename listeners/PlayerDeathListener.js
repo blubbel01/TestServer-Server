@@ -1,8 +1,13 @@
+const {playerCreateVehicle} = require("../untils/DataHandler");
 mp.events.add("playerDeath", (player, reason, killer) => {
     if (killer) {
         mp.players.broadcast(`${player.name} wurde von ${killer.name} erledigt!`);
     } else {
         mp.players.broadcast(`${player.name} ist gestorben!`);
+    }
+
+    if (playerCreateVehicle.has(player.name)) {
+        playerCreateVehicle.get(player.name).destroy();
     }
 
     setTimeout(() => {

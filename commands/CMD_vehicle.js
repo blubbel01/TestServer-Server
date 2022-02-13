@@ -1,4 +1,5 @@
 const {MyAPI} = require("../untils/MyAPI");
+const {playerCreateVehicle} = require('../untils/DataHandler');
 
 MyAPI.registerCommand("veh", (player, fulltext, vehicleName) => {
     const vehicle = mp.vehicles.new(mp.joaat(vehicleName), player.position,
@@ -16,6 +17,11 @@ MyAPI.registerCommand("veh", (player, fulltext, vehicleName) => {
     vehicle.setMod(40, 3);
     vehicle.setMod(46, 2);
     vehicle.setMod(53, 5);
+
+    if (playerCreateVehicle.has(player.name)) {
+        playerCreateVehicle.get(player.name).destroy();
+    }
+    playerCreateVehicle.set(player.name, vehicle);
 
     player.notify("~g~Fahrzeug erstellt!");
 });
