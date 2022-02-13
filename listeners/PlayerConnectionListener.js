@@ -1,5 +1,4 @@
-const {activePlayers} = require("../shops/clothshop");
-// const {database} = require("../database/index");
+const {database} = require("../database/index");
 
 mp.events.add("playerJoin", async (player) => {
 
@@ -25,9 +24,6 @@ mp.events.add("playerJoin", async (player) => {
 
 mp.events.add("playerQuit", (player, exitType, reason) => {
     mp.players.broadcast(`Spieler ${player.name} hat den Server verlassen!`);
-
-    if (activePlayers[player.id])
-        delete activePlayers[player.id];
 });
 
 mp.events.add("playerChat", (player, text) => {
