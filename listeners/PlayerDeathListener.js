@@ -6,10 +6,6 @@ mp.events.add("playerDeath", (player, reason, killer) => {
         mp.players.broadcast(`${player.name} ist gestorben!`);
     }
 
-    if (playerCreateVehicle.has(player.name)) {
-        playerCreateVehicle.get(player.name).destroy();
-    }
-
     setTimeout(() => {
         player.spawn(new mp.Vector3(-425.517, 1123.620, 325.8544));
         player.dimension = 0;
