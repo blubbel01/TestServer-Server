@@ -17,6 +17,7 @@ require("./commands/CMD_vehicle");
 require("./commands/CMD_setDim");
 require("./commands/CMD_time");
 require("./commands/CMD_weather");
+require("./commands/CMD_position");
 
 // load Listeners
 require("./listeners/PlayerConnectionListener");
