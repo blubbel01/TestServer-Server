@@ -1,3 +1,5 @@
-exports =  {
-    playerCreateVehicle: new Map(),
-}
+const playerCreateVehicle = new Map();
+
+module.exports = {
+    playerCreateVehicle,
+};
