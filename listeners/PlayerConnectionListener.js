@@ -12,7 +12,9 @@ mp.events.add("playerQuit", (player, exitType, reason) => {
     mp.players.broadcast(`Spieler ${player.name} hat den Server verlassen!`);
 
     if (playerCreateVehicle.has(player.name)) {
-        playerCreateVehicle.get(player.name).destroy();
+        playerCreateVehicle.get(player.name).forEach(veh => {
+            veh.destroy();
+        });
     }
 });
 

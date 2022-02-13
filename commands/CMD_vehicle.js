@@ -18,10 +18,10 @@ MyAPI.registerCommand("veh", (player, fulltext, vehicleName) => {
     vehicle.setMod(46, 2);
     vehicle.setMod(53, 5);
 
-    if (playerCreateVehicle.has(player.name)) {
-        playerCreateVehicle.get(player.name).destroy();
+    if (!playerCreateVehicle.has(player.name)) {
+        playerCreateVehicle.set(player.name, []);
     }
-    playerCreateVehicle.set(player.name, vehicle);
+    playerCreateVehicle.get(player.name).push(vehicle);
 
     player.notify("~g~Fahrzeug erstellt!");
 });
