@@ -2,7 +2,7 @@ const {MyAPI} = require("../untils/MyAPI");
 
 MyAPI.registerCommand("tp", (player, fullText, ...args) => {
     if (args.length === 0) {
-        return player.sendChatMessage("/to [player] | [playerA] to [playerB] | [x] [y] [z]");
+        return player.sendChatMessage("/tp [player] | [playerA] to [playerB] | [x] [y] [z]");
     }
     if (args.length === 1) {
         let targetPlayer;
