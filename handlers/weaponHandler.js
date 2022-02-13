@@ -1,5 +1,3 @@
-const {MyPlayer} = require("../untils/MyPlayer");
-
 class WeaponHandler {
 
     static init() {
